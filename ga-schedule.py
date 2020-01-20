@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[25]:
+# In[23]:
 
 
 get_ipython().magic('matplotlib nbagg')
@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 #creator.create("FitnessPeopleCount", base.Fitness, weights=(0.4, 0.5, 0.1))
-creator.create("FitnessPeopleCount", base.Fitness, weights=(-10.0,-100.0,-1.0))#, -1.0, -1.0))
+creator.create("FitnessPeopleCount", base.Fitness, weights=(-0.3,-0.6,-0.1))#-10.0,-100.0,-1.0))#, -1.0, -1.0))
 creator.create("Individual", list, fitness=creator.FitnessPeopleCount)
 
 toolbox = base.Toolbox()
@@ -621,6 +621,22 @@ if __name__ == '__main__':
     ani2 = animation.ArtistAnimation(fig, ims2,blit = True)
     ani3 = animation.ArtistAnimation(fig, ims3,blit = True)
     plt.show()
- 
+     
+    best=best_ind
+    BEST=[best[i:i+14] for i in range(0,len(best),14)]
+    SCEDULE=pd.DataFrame(BEST,columns=s.SHIFT_BOXES)
+    SCEDULE    
     #s.print_tsv()
+#SCEDULE
+num=SCEDULE.sum()
+num.name="合計"
+SCEDULE=SCEDULE.append(num)
+d=SCEDULE.sum(axis=1)
+SCEDULE=SCEDULE.assign(勤務日数=d)
+need=s.NEED_PEOPLE
+need.append("-")
+SCEDULE.loc['必要']=need
+#need.name="必要人数"
+#SCEDULE=SCEDULE.append(need)
+SCEDULE
 
